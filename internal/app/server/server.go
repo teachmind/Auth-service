@@ -30,8 +30,6 @@ func NewServer(port string, authSvc service.AuthService) *server {
 func (s *server) route() *mux.Router {
 	r := mux.NewRouter()
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
-	apiRoute := r.PathPrefix("/api/v1").Subrouter()
-	apiRoute.HandleFunc("/test", s.test).Methods(http.MethodGet)
 	return r
 }
 
