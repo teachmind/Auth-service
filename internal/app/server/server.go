@@ -12,12 +12,14 @@ import (
 type server struct {
 	listenAddress string
 	http          *http.Server
+	userService   service.UserService
 	authService   service.AuthService
 }
 
-func NewServer(port string, authSvc service.AuthService) *server {
+func NewServer(port string, userSvc service.UserService, authSvc service.AuthService) *server {
 	s := &server{
 		listenAddress: port,
+		userService:   userSvc,
 		authService:   authSvc,
 	}
 	s.http = &http.Server{
@@ -30,6 +32,7 @@ func NewServer(port string, authSvc service.AuthService) *server {
 func (s *server) route() *mux.Router {
 	r := mux.NewRouter()
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
+
 	return r
 }
 

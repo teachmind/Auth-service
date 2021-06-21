@@ -26,7 +26,7 @@ type Config struct {
 }
 
 func New(conf *Config) (*sqlx.DB, error) {
-	println(conf.Url())
+	// println(conf.Url())
 
 	db, err := sqlx.Connect("postgres", conf.Url())
 	if err != nil {
