@@ -14,14 +14,6 @@ var migrateCmd = &cobra.Command{
 	Short: "Start DB migrations",
 	Long:  `It will run migrations according to db/migrations scripts on Reporting database`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-
-		// os.Setenv("APP_PORT", ":8080")
-		// os.Setenv("DB_HOST", "localhost")
-		// os.Setenv("DB_PORT", "5432")
-		// os.Setenv("DB_USER", "bongo")
-		// os.Setenv("DB_PASSWORD", "")
-		// os.Setenv("DB_NAME", "parceldb")
-
 		return postgres2.RunDatabaseMigration(&postgres2.Config{
 			Host:     os.Getenv("DB_HOST"),
 			Port:     os.Getenv("DB_PORT"),
@@ -37,14 +29,6 @@ var rollbackCmd = &cobra.Command{
 	Short: "Start DB rollback",
 	Long:  "It will rollback one step",
 	RunE: func(cmd *cobra.Command, args []string) error {
-
-		// os.Setenv("APP_PORT", ":8080")
-		// os.Setenv("DB_HOST", "localhost")
-		// os.Setenv("DB_PORT", "5432")
-		// os.Setenv("DB_USER", "bongo")
-		// os.Setenv("DB_PASSWORD", "")
-		// os.Setenv("DB_NAME", "parceldb")
-
 		return postgres2.RollbackLatestMigration(&postgres2.Config{
 			Host:     os.Getenv("DB_HOST"),
 			Port:     os.Getenv("DB_PORT"),
