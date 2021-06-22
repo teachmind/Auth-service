@@ -9,12 +9,12 @@ import (
 
 type UserService interface {
 	CreateUser(ctx context.Context, user model.User) error
-	GetUserByEmailAndPassword(ctx context.Context, email, password string) (model.User, error)
+	GetUserByPhoneAndPassword(ctx context.Context, phone, password string) (model.User, error)
 }
 
 type UserRepository interface {
 	InsertUser(ctx context.Context, user model.User) error
-	GetUserByEmail(ctx context.Context, email string) (model.User, error)
+	GetUserByPhone(ctx context.Context, phone string) (model.User, error)
 }
 
 type AuthService interface {

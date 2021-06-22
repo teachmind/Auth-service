@@ -12,8 +12,8 @@ import (
 
 const (
 	errUniqueViolation  = pq.ErrorCode("23505")
-	insertUserQuery     = `INSERT INTO users (email, full_name, password, business_name) VALUES ($1, $2, $3, $4)`
-	getUserByEmailQuery = `SELECT id, email, full_name, password, business_name FROM users WHERE email = $1`
+	insertUserQuery     = `INSERT INTO users (phone, full_name, password, business_name) VALUES ($1, $2, $3, $4)`
+	getUserByPhoneQuery = `SELECT id, phone, full_name, password, business_name FROM users WHERE phone = $1`
 )
 
 type repository struct {
@@ -27,7 +27,7 @@ func NewRepository(db *sqlx.DB) *repository {
 }
 
 func (r *repository) InsertUser(ctx context.Context, user model.User) error {
-	if _, err := r.db.ExecContext(ctx, insertUserQuery, user.Email, user.FullName, user.Password, user.BusinessName); err != nil {
+	if _, err := r.db.ExecContext(ctx, insertUserQuery, user.Phone, user.FullName, user.Password, user.BusinessName); err != nil {
 		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == errUniqueViolation {
 			return fmt.Errorf("%v :%w", err, model.ErrInvalid)
 		}
@@ -36,11 +36,11 @@ func (r *repository) InsertUser(ctx context.Context, user model.User) error {
 	return nil
 }
 
-func (r *repository) GetUserByEmail(ctx context.Context, email string) (model.User, error) {
+func (r *repository) GetUserByPhone(ctx context.Context, phone string) (model.User, error) {
 	var user model.User
-	if err := r.db.GetContext(ctx, &user, getUserByEmailQuery, email); err != nil {
+	if err := r.db.GetContext(ctx, &user, getUserByPhoneQuery, phone); err != nil {
 		if err == sql.ErrNoRows {
-			return model.User{}, fmt.Errorf("email not found :%w", model.ErrNotFound)
+			return model.User{}, fmt.Errorf("the phone no is not found :%w", model.ErrNotFound)
 		}
 		return model.User{}, err
 	}

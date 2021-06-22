@@ -19,7 +19,7 @@ func NewService(repo svc.UserRepository) *service {
 }
 
 func (s *service) CreateUser(ctx context.Context, user model.User) error {
-	if user.Email == "" || user.Password == "" || user.FullName == "" || user.BusinessName == "" {
+	if user.Phone == "" || user.Password == "" || user.FullName == "" || user.BusinessName == "" {
 		return fmt.Errorf("invalid user request :%w", model.ErrInvalid)
 	}
 	if p, err := util.HashPassword(user.Password); err == nil {
@@ -28,11 +28,11 @@ func (s *service) CreateUser(ctx context.Context, user model.User) error {
 	return s.repo.InsertUser(ctx, user)
 }
 
-func (s *service) GetUserByEmailAndPassword(ctx context.Context, email, password string) (model.User, error) {
-	if email == "" || password == "" {
+func (s *service) GetUserByPhoneAndPassword(ctx context.Context, phone, password string) (model.User, error) {
+	if phone == "" || password == "" {
 		return model.User{}, fmt.Errorf("invalid login request :%w", model.ErrInvalid)
 	}
-	user, err := s.repo.GetUserByEmail(ctx, email)
+	user, err := s.repo.GetUserByPhone(ctx, phone)
 	if err != nil {
 		return model.User{}, err
 	}
