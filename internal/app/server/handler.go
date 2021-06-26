@@ -11,7 +11,7 @@ import (
 
 func (s *server) signUp(w http.ResponseWriter, r *http.Request) {
 	var data model.User
-	SuccessResponse(w, http.StatusCreated, data)
+
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		ErrUnprocessableEntityResponse(w, "Decode Error", err)
 		return
