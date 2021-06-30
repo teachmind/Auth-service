@@ -16,6 +16,7 @@ func (s *server) signUp(w http.ResponseWriter, r *http.Request) {
 		ErrUnprocessableEntityResponse(w, "Decode Error", err)
 		return
 	}
+
 	if err := s.userService.CreateUser(r.Context(), data); err != nil {
 		if errors.Is(err, model.ErrInvalid) {
 			ErrInvalidEntityResponse(w, "invalid user", err)

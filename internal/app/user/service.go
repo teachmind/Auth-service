@@ -20,9 +20,10 @@ func NewService(repo svc.UserRepository) *service {
 
 func (s *service) CreateUser(ctx context.Context, user model.User) error {
 
-	if user.PhoneNumber == "" || user.Password == "" || user.CategoryId == 0 {
+	if user.PhoneNumber == "" || user.Password == "" || user.CategoryId < 1 {
 		return fmt.Errorf("invalid user request :%w", model.ErrInvalid)
 	}
+
 	if p, err := util.HashPassword(user.Password); err == nil {
 		user.Password = p
 	}
