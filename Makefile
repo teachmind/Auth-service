@@ -32,4 +32,3 @@ test:
 	@go tool cover -html=coverage.txt -o coverage.html
 	@go tool cover -func=coverage.txt | grep -i total:
 	@go tool cover -func=coverage.txt | gawk '/total:.*statements/ {if (strtonum($$3) < $(COVERAGE_MIN)) {print "ERR: coverage is lower than $(COVERAGE_MIN)"; exit 1}}'
-	@rm coverage.txt
