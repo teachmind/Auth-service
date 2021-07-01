@@ -1,10 +1,10 @@
+name: Build
 on:
   push:
     - master
   pull_request:
     branches:
       - master
-name: Build
 jobs:
   build:
     name: Build
