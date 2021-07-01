@@ -5,10 +5,10 @@
 package mocks
 
 import (
-	context "context"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 	model "user-service/internal/app/model"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockAuthService is a mock of AuthService interface
