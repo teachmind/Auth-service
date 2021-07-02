@@ -26,10 +26,8 @@ func TestService_CreateUser(t *testing.T) {
 		{
 			desc: "should return success",
 			payload: model.User{
-				Phone:        "01738799349",
-				Password:     "123456",
-				FullName:     "mr abcd",
-				BusinessName: "business-1",
+				PhoneNumber: "01738799349",
+				Password:    "123456",
 			},
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
@@ -49,10 +47,8 @@ func TestService_CreateUser(t *testing.T) {
 		{
 			desc: "should return db error",
 			payload: model.User{
-				Phone:        "phone",
-				Password:     "12345",
-				FullName:     "asdf",
-				BusinessName: "asdf",
+				PhoneNumber: "phone",
+				Password:    "12345",
 			},
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
@@ -78,9 +74,9 @@ func TestService_GetUserByPhoneAndPassword(t *testing.T) {
 
 	password, _ := util.HashPassword("123456")
 	user := model.User{
-		ID:       1,
-		Phone:    "01738799349",
-		Password: password,
+		ID:          1,
+		PhoneNumber: "01738799349",
+		Password:    password,
 	}
 
 	testCases := []struct {
