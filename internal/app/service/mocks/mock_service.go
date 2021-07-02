@@ -11,6 +11,110 @@ import (
 	model "user-service/internal/app/model"
 )
 
+// MockUserService is a mock of UserService interface
+type MockUserService struct {
+	ctrl     *gomock.Controller
+	recorder *MockUserServiceMockRecorder
+}
+
+// MockUserServiceMockRecorder is the mock recorder for MockUserService
+type MockUserServiceMockRecorder struct {
+	mock *MockUserService
+}
+
+// NewMockUserService creates a new mock instance
+func NewMockUserService(ctrl *gomock.Controller) *MockUserService {
+	mock := &MockUserService{ctrl: ctrl}
+	mock.recorder = &MockUserServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use
+func (m *MockUserService) EXPECT() *MockUserServiceMockRecorder {
+	return m.recorder
+}
+
+// CreateUser mocks base method
+func (m *MockUserService) CreateUser(ctx context.Context, user model.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUser", ctx, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateUser indicates an expected call of CreateUser
+func (mr *MockUserServiceMockRecorder) CreateUser(ctx, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserService)(nil).CreateUser), ctx, user)
+}
+
+// GetUserByPhoneAndPassword mocks base method
+func (m *MockUserService) GetUserByPhoneAndPassword(ctx context.Context, phone, password string) (model.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUserByPhoneAndPassword", ctx, phone, password)
+	ret0, _ := ret[0].(model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserByPhoneAndPassword indicates an expected call of GetUserByEmailAndPassword
+func (mr *MockUserServiceMockRecorder) GetUserByPhoneAndPassword(ctx, phone, password interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByPhoneAndPassword", reflect.TypeOf((*MockUserService)(nil).GetUserByPhoneAndPassword), ctx, phone, password)
+}
+
+// MockUserRepository is a mock of UserRepository interface
+type MockUserRepository struct {
+	ctrl     *gomock.Controller
+	recorder *MockUserRepositoryMockRecorder
+}
+
+// MockUserRepositoryMockRecorder is the mock recorder for MockUserRepository
+type MockUserRepositoryMockRecorder struct {
+	mock *MockUserRepository
+}
+
+// NewMockUserRepository creates a new mock instance
+func NewMockUserRepository(ctrl *gomock.Controller) *MockUserRepository {
+	mock := &MockUserRepository{ctrl: ctrl}
+	mock.recorder = &MockUserRepositoryMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use
+func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
+	return m.recorder
+}
+
+// InsertUser mocks base method
+func (m *MockUserRepository) InsertUser(ctx context.Context, user model.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "InsertUser", ctx, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// InsertUser indicates an expected call of InsertUser
+func (mr *MockUserRepositoryMockRecorder) InsertUser(ctx, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InsertUser", reflect.TypeOf((*MockUserRepository)(nil).InsertUser), ctx, user)
+}
+
+// GetUserByPhone mocks base method
+func (m *MockUserRepository) GetUserByPhone(ctx context.Context, phone string) (model.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUserByPhone", ctx, phone)
+	ret0, _ := ret[0].(model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserByPhone indicates an expected call of GetUserByPhone
+func (mr *MockUserRepositoryMockRecorder) GetUserByPhone(ctx, phone interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByPhone", reflect.TypeOf((*MockUserRepository)(nil).GetUserByPhone), ctx, phone)
+}
+
 // MockAuthService is a mock of AuthService interface
 type MockAuthService struct {
 	ctrl     *gomock.Controller

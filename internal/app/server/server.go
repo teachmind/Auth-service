@@ -12,12 +12,14 @@ import (
 type server struct {
 	listenAddress string
 	http          *http.Server
+	userService   service.UserService
 	authService   service.AuthService
 }
 
-func NewServer(port string, authSvc service.AuthService) *server {
+func NewServer(port string, userSvc service.UserService, authSvc service.AuthService) *server {
 	s := &server{
 		listenAddress: port,
+		userService:   userSvc,
 		authService:   authSvc,
 	}
 	s.http = &http.Server{
@@ -32,6 +34,7 @@ func (s *server) route() *mux.Router {
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
 	apiRoute := r.PathPrefix("/api/v1").Subrouter()
 	apiRoute.HandleFunc("/authorization/validate", s.tokenValidation).Methods(http.MethodGet)
+	apiRoute.HandleFunc("/signup", s.signUp).Methods(http.MethodPost)
 	return r
 }
 
