@@ -19,15 +19,15 @@ func TestRepository_GetUserByPhoneNumber(t *testing.T) {
 
 		user := model.User{
 			ID:          1,
-			PhoneNumber: "123456",
-			CategoryId:  1,
+			PhoneNumber: "+880123456",
 			Password:    "123456",
+			CategoryId:  1,
 		}
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectQuery("^SELECT (.+) FROM users WHERE (.+)").
 			WithArgs("phone_number").
 			WillReturnRows(sqlmock.NewRows([]string{"id", "phone_number", "category_id", "password"}).
-				AddRow(1, "123456", 1, "123456"))
+				AddRow(1, "+880123456", 1, "123456"))
 		repo := NewRepository(sqlxDB)
 		result, err := repo.GetUserByPhoneNumber(context.Background(), "phone_number")
 		assert.Nil(t, err)

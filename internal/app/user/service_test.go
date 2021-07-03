@@ -20,7 +20,7 @@ func TestService_GetUserByPhoneNumberAndPassword(t *testing.T) {
 	password, _ := util.HashPassword("123456")
 	user := model.User{
 		ID:          1,
-		PhoneNumber: "123456",
+		PhoneNumber: "+880123456",
 		Password:    password,
 	}
 
@@ -34,11 +34,11 @@ func TestService_GetUserByPhoneNumberAndPassword(t *testing.T) {
 	}{
 		{
 			desc:         "should return success",
-			phone_number: "123456",
+			phone_number: "+880123456",
 			password:     "123456",
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
-				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "123456").Return(user, nil)
+				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "+880123456").Return(user, nil)
 				return r
 			},
 			expErr:  nil,
@@ -56,11 +56,11 @@ func TestService_GetUserByPhoneNumberAndPassword(t *testing.T) {
 		},
 		{
 			desc:         "should return DB error",
-			phone_number: "123456",
+			phone_number: "+880123456",
 			password:     "123456",
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
-				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "123456").Return(model.User{}, errors.New("db-error"))
+				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "+880123456").Return(model.User{}, errors.New("db-error"))
 				return r
 			},
 			expErr:  errors.New("db-error"),
@@ -68,11 +68,11 @@ func TestService_GetUserByPhoneNumberAndPassword(t *testing.T) {
 		},
 		{
 			desc:         "should return wrong password error",
-			phone_number: "123456",
+			phone_number: "+880123456",
 			password:     "wrong-password",
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
-				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "123456").Return(user, nil)
+				r.EXPECT().GetUserByPhoneNumber(gomock.Any(), "+880123456").Return(user, nil)
 				return r
 			},
 			expErr:  fmt.Errorf("wrong password :%w", model.ErrInvalid),
