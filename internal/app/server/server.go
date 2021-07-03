@@ -16,9 +16,10 @@ type server struct {
 	userService   service.UserService
 }
 
-func NewServer(port string, authSvc service.AuthService) *server {
+func NewServer(port string, userSvc service.UserService, authSvc service.AuthService) *server {
 	s := &server{
 		listenAddress: port,
+		userService:   userSvc,
 		authService:   authSvc,
 	}
 	s.http = &http.Server{
