@@ -16,7 +16,7 @@ type server struct {
 	userService   service.UserService
 }
 
-/* Method to initiate new server */
+// NewServer to initiate server
 func NewServer(port string, userSvc service.UserService, authSvc service.AuthService) *server {
 	s := &server{
 		listenAddress: port,

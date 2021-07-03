@@ -10,7 +10,7 @@ import (
 	"github.com/lib/pq"
 )
 
-/* SQL Query */
+// SQL Query and error
 const (
 	errUniqueViolation        = pq.ErrorCode("23505")
 	GetUserByPhoneNumberQuery = `SELECT id, phone_number, password FROM users WHERE phone_number = $1`
@@ -20,7 +20,7 @@ type repository struct {
 	db *sqlx.DB
 }
 
-/* Initiates New Repository */
+// NewRepository initiates user repository and returns DB
 func NewRepository(db *sqlx.DB) *repository {
 	return &repository{
 		db: db,

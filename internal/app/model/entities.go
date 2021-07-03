@@ -11,7 +11,7 @@ type User struct {
 	CategoryId  int    `json:"category_id" db:"category_id"`
 }
 
-// Validate phone numbers with regexp
+// PhoneValidation Validate phone numbers with regexp
 func PhoneValidation(phoneNumber string) bool {
 	re := regexp.MustCompile(`^(\+88)?(01)(\d{3})[ -]?(\d{6})$`)
 	err := re.MatchString(phoneNumber)

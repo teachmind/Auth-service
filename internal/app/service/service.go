@@ -11,12 +11,12 @@ type AuthService interface {
 	Encode(user model.User) (string, error)
 }
 
-/* Repository to fetch user by PhoneNumber */
+// UserRepository to fetch user by PhoneNumber
 type UserRepository interface {
 	GetUserByPhoneNumber(ctx context.Context, phoneNumber string) (model.User, error)
 }
 
-/* Server to fetch user by PhoneNumber and Password */
+// UserService to fetch user by PhoneNumber and Password
 type UserService interface {
 	GetUserByPhoneNumberAndPassword(ctx context.Context, phoneNumber, password string) (model.User, error)
 }
