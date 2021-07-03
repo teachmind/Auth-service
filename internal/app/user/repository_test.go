@@ -19,14 +19,12 @@ func TestRepository_InsertUser(t *testing.T) {
 		defer db.Close()
 
 		user := model.User{
-			Phone:        "phone",
-			FullName:     "full_name",
-			Password:     "password",
-			BusinessName: "business_name",
+			PhoneNumber: "phone_number",
+			Password:    "password",
 		}
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectExec("INSERT INTO users (.+) VALUES (.+)").
-			WithArgs(user.Phone, user.FullName, user.Password, user.BusinessName).
+			WithArgs(user.PhoneNumber, user.Password).
 			WillReturnResult(sqlmock.NewResult(1, 1))
 
 		repo := NewRepository(sqlxDB)
@@ -39,15 +37,13 @@ func TestRepository_InsertUser(t *testing.T) {
 		defer db.Close()
 
 		user := model.User{
-			Phone:        "phone",
-			FullName:     "full_name",
-			Password:     "password",
-			BusinessName: "business_name",
+			PhoneNumber: "phone",
+			Password:    "password",
 		}
 
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectExec("INSERT INTO users (.+) VALUES (.+)").
-			WithArgs(user.Phone, user.FullName, user.Password, user.BusinessName).
+			WithArgs(user.PhoneNumber, user.Password).
 			WillReturnError(&pq.Error{Code: "23505"})
 
 		repo := NewRepository(sqlxDB)
@@ -60,15 +56,13 @@ func TestRepository_InsertUser(t *testing.T) {
 		defer db.Close()
 
 		user := model.User{
-			Phone:        "phone",
-			FullName:     "full_name",
-			Password:     "password",
-			BusinessName: "business_name",
+			PhoneNumber:  "phone",
+			Password:     "password"
 		}
 
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectExec("INSERT INTO users (.+) VALUES (.+)").
-			WithArgs(user.Phone, user.FullName, user.Password, user.BusinessName).
+			WithArgs(user.PhoneNumber, user.Password).
 			WillReturnError(errors.New("sql-error"))
 
 		repo := NewRepository(sqlxDB)
@@ -84,7 +78,7 @@ func TestRepository_GetUserByPhone(t *testing.T) {
 
 		user := model.User{
 			ID:           1,
-			Phone:        "01738799349",
+			PhoneNumber:  "01738799349",
 			FullName:     "Mr. Name",
 			Password:     "123456",
 			BusinessName: "business-1",

@@ -26,7 +26,6 @@ func (s *service) CreateUser(ctx context.Context, user model.User) error {
 
 	if err := model.SignUpPhoneValidation(user.PhoneNumber); !err {
 		return fmt.Errorf("invalid phone number :%w", model.ErrInvalid)
-		// return fmt.Errorf("invalid phone number :%w", model.ErrInvalid)
 	}
 
 	if p, err := util.HashPassword(user.Password); err == nil {
