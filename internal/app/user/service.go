@@ -21,9 +21,6 @@ func NewService(repo svc.UserRepository) *service {
 
 // GetUserByPhoneNumberAndPassword to get User by PhoneNumber and Password
 func (s *service) GetUserByPhoneNumberAndPassword(ctx context.Context, phoneNumber, password string) (model.User, error) {
-	if phoneNumber == "" || password == "" {
-		return model.User{}, fmt.Errorf("invalid login request :%w", model.ErrInvalid)
-	}
 	user, err := s.repo.GetUserByPhoneNumber(ctx, phoneNumber)
 	if err != nil {
 		return model.User{}, err

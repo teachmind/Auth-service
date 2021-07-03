@@ -17,6 +17,11 @@ func (s *server) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := data.ValidateLogin(); err != nil {
+		ErrInvalidEntityResponse(w, "Invalid Input", err)
+		return
+	}
+
 	user, err := s.userService.GetUserByPhoneNumberAndPassword(r.Context(), data.PhoneNumber, data.Password)
 
 	if err != nil {
