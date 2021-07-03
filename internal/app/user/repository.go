@@ -13,7 +13,7 @@ import (
 // SQL Query and error
 const (
 	errUniqueViolation        = pq.ErrorCode("23505")
-	GetUserByPhoneNumberQuery = `SELECT id, phone_number, password FROM users WHERE phone_number = $1`
+	GetUserByPhoneNumberQuery = `SELECT id, phone_number, password, category_id FROM users WHERE phone_number = $1`
 )
 
 type repository struct {

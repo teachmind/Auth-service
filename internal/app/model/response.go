@@ -21,3 +21,10 @@ type ErrorDetailsResponse struct {
 	Title    string `json:"message_title,omitempty"`
 	Severity string `json:"severity,omitempty"`
 }
+
+type LoginResponse struct {
+	ID          int    `json:"id"`
+	PhoneNumber string `json:"phone_number"`
+	CategoryId  int    `json:"category_id"`
+	Token       string `json:"token"`
+}
