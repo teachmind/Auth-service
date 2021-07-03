@@ -12,12 +12,14 @@ type service struct {
 	repo svc.UserRepository
 }
 
+/* Initiates new user repository service */
 func NewService(repo svc.UserRepository) *service {
 	return &service{
 		repo: repo,
 	}
 }
 
+/* Service to get User by PhoneNumber and Password */
 func (s *service) GetUserByPhoneNumberAndPassword(ctx context.Context, phone_number, password string) (model.User, error) {
 	if phone_number == "" || password == "" {
 		return model.User{}, fmt.Errorf("invalid login request :%w", model.ErrInvalid)
