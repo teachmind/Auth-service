@@ -11,5 +11,4 @@ CREATE TABLE IF NOT EXISTS users (
   CONSTRAINT category_id
       FOREIGN KEY(category_id) 
 	      REFERENCES user_category(id)
-          ON DELETE CASCADE
 );
