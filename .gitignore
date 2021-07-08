@@ -2,4 +2,5 @@ build
 .env
 *.out
 coverage.html
+coverage.txt
 **/vendor

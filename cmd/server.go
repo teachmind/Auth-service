@@ -6,6 +6,7 @@ import (
 	"syscall"
 	"user-service/internal/app/server"
 	"user-service/internal/app/token"
+	"user-service/internal/app/user"
 	"user-service/internal/pkg/postgres"
 
 	"github.com/rs/zerolog/log"
@@ -30,6 +31,7 @@ var serverCmd = &cobra.Command{
 			panic(err)
 		}
 		s := server.NewServer(os.Getenv("APP_PORT"),
+			user.NewService(user.NewRepository(db)),
 			token.NewService(),
 		)
 
