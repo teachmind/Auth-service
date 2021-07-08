@@ -44,7 +44,7 @@ func (s *server) login(w http.ResponseWriter, r *http.Request) {
 
 	loginResponse := model.LoginResponse{
 		ID:          user.ID,
-		CategoryId:  user.CategoryId,
+		CategoryID:  user.CategoryId,
 		PhoneNumber: user.PhoneNumber,
 		Token:       token,
 	}

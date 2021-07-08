@@ -2,6 +2,7 @@ package server
 
 import (
 	"errors"
+
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -20,8 +21,8 @@ func TestLogin(t *testing.T) {
 
 	user := model.User{
 		ID:          1,
+		PhoneNumber: "+8801712345678",
 		Password:    "123456",
-		PhoneNumber: "123456",
 		CategoryId:  1,
 	}
 
@@ -31,13 +32,14 @@ func TestLogin(t *testing.T) {
 		mockUserSvc   func() *mocks.MockUserService
 		mockAuthSvc   func() *mocks.MockAuthService
 		expStatusCode int
+		expResponse   string
 	}{
 		{
 			desc:    "should success",
-			payload: `{ "phone_number": "123456", "password": "123456" }`,
+			payload: `{ "phone_number": "+8801712345678", "password": "123456" }`,
 			mockUserSvc: func() *mocks.MockUserService {
 				s := mocks.NewMockUserService(ctrl)
-				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "123456", "123456").Return(user, nil)
+				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "+8801712345678", "123456").Return(user, nil)
 				return s
 			},
 			mockAuthSvc: func() *mocks.MockAuthService {
@@ -46,6 +48,7 @@ func TestLogin(t *testing.T) {
 				return s
 			},
 			expStatusCode: http.StatusOK,
+			expResponse:   `{"success":true,"errors":null,"data":{"id":1,"phone_number":"+8801712345678","category_id":1,"token":"auto-token"}}`,
 		},
 		{
 			desc:    "should return decode error",
@@ -57,39 +60,43 @@ func TestLogin(t *testing.T) {
 				return mocks.NewMockAuthService(ctrl)
 			},
 			expStatusCode: http.StatusUnprocessableEntity,
+			expResponse:   `{"success":false,"errors":[{"code":"INVALID","message":"invalid character '-' in numeric literal","message_title":"Decode Error","severity":"error"}],"data":null}`,
 		},
 		{
 			desc:    "should return invalid credentials error",
-			payload: `{ "phone_number": "123456", "password": "123456" }`,
+			payload: `{ "phone_number": "+8801712345678", "password": "123456" }`,
 			mockUserSvc: func() *mocks.MockUserService {
 				s := mocks.NewMockUserService(ctrl)
-				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "123456", "123456").Return(model.User{}, model.ErrInvalid)
+				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "+8801712345678", "123456").Return(model.User{}, model.ErrInvalid)
 				return s
 			},
 			mockAuthSvc: func() *mocks.MockAuthService {
 				return mocks.NewMockAuthService(ctrl)
 			},
 			expStatusCode: http.StatusBadRequest,
+			expResponse:   `{"success":false,"errors":[{"code":"INVALID","message":"invalid","message_title":"invalid credentials","severity":"error"}],"data":null}`,
 		},
 		{
 			desc:    "should return internal server error",
-			payload: `{ "phone_number": "123456", "password": "123456" }`,
+			payload: `{ "phone_number": "+8801712345678", "password": "123456" }`,
 			mockUserSvc: func() *mocks.MockUserService {
 				s := mocks.NewMockUserService(ctrl)
-				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "123456", "123456").Return(model.User{}, errors.New("server-error"))
+				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "+8801712345678", "123456").Return(model.User{}, errors.New("server-error"))
 				return s
 			},
 			mockAuthSvc: func() *mocks.MockAuthService {
 				return mocks.NewMockAuthService(ctrl)
 			},
 			expStatusCode: http.StatusInternalServerError,
+			expResponse:   `{"success":false,"errors":[{"code":"SERVER_ERROR","message":"server-error","message_title":"failed to fetch login data","severity":"error"}],"data":null}`,
 		},
 		{
 			desc:    "should return internal server error for jwt",
-			payload: `{ "phone_number": "123456", "password": "123456" }`,
+			payload: `{ "phone_number": "+8801712345678", "password": "123456" }`,
 			mockUserSvc: func() *mocks.MockUserService {
 				s := mocks.NewMockUserService(ctrl)
-				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "123456", "123456").Return(user, nil)
+				s.EXPECT().GetUserByPhoneNumberAndPassword(gomock.Any(), "+8801712345678", "123456").
+					Return(user, nil)
 				return s
 			},
 			mockAuthSvc: func() *mocks.MockAuthService {
@@ -98,6 +105,7 @@ func TestLogin(t *testing.T) {
 				return s
 			},
 			expStatusCode: http.StatusInternalServerError,
+			expResponse:   `{"success":false,"errors":[{"code":"SERVER_ERROR","message":"jwt-error","message_title":"failed to generate jwt token","severity":"error"}],"data":null}`,
 		},
 	}
 	for _, tc := range testCases {
@@ -111,7 +119,9 @@ func TestLogin(t *testing.T) {
 			router := mux.NewRouter()
 			router.Methods(http.MethodPost).Path("/api/v1/login").HandlerFunc(s.login)
 			router.ServeHTTP(w, r)
+
 			assert.Equal(t, tc.expStatusCode, w.Code)
+			assert.Equal(t, tc.expResponse, w.Body.String())
 		})
 	}
 }
