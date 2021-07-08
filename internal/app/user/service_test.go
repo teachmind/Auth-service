@@ -45,16 +45,6 @@ func TestService_GetUserByPhoneNumberAndPassword(t *testing.T) {
 			expUser: user,
 		},
 		{
-			desc:        "should return invalid request error",
-			phoneNumber: "",
-			password:    "",
-			mockRepo: func() *mocks.MockUserRepository {
-				return mocks.NewMockUserRepository(ctrl)
-			},
-			expErr:  fmt.Errorf("invalid login request :%w", model.ErrInvalid),
-			expUser: model.User{},
-		},
-		{
 			desc:        "should return DB error",
 			phoneNumber: "+880123456",
 			password:    "123456",
