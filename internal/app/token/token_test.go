@@ -1,19 +1,19 @@
 package token
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"user-service/internal/app/model"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestService_Decode(t *testing.T) {
 	t.Run("should decode the same user", func(t *testing.T) {
 		user := model.User{
-			ID:           1,
-			Email:        "abcd@gmail.com",
-			Password:     "123456",
-			FullName:     "mr abcd",
-			BusinessName: "my business",
+			ID:          2,
+			PhoneNumber: "+8801707123123",
+			Password:    "pas8889ff",
+			CategoryId:  1,
 		}
 
 		s := NewService()
