@@ -35,6 +35,7 @@ func (s *server) route() *mux.Router {
 	apiRoute := r.PathPrefix("/api/v1").Subrouter()
 	apiRoute.HandleFunc("/login", s.login).Methods(http.MethodPost)
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
+	apiRoute.HandleFunc("/authorization/validate", s.tokenValidation).Methods(http.MethodGet)
 	return r
 }
 

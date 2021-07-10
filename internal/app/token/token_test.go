@@ -10,8 +10,10 @@ import (
 func TestService_Decode(t *testing.T) {
 	t.Run("should decode the same user", func(t *testing.T) {
 		user := model.User{
-			ID:       1,
-			Password: "123456",
+			ID:          2,
+			PhoneNumber: "+8801707123123",
+			Password:    "pas8889ff",
+			CategoryId:  1,
 		}
 
 		s := NewService()
