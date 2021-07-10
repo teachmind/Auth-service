@@ -27,7 +27,7 @@ func NewRepository(db *sqlx.DB) *repository {
 }
 
 func (r *repository) InsertUser(ctx context.Context, user model.User) error {
-	if _, err := r.db.ExecContext(ctx, insertUserQuery, user.PhoneNumber, user.Password, user.CategoryId); err != nil {
+	if _, err := r.db.ExecContext(ctx, insertUserQuery, user.PhoneNumber, user.Password, 1); err != nil {
 		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == errUniqueViolation {
 			return fmt.Errorf("%v :%w", err, model.ErrInvalid)
 		}
@@ -36,9 +36,9 @@ func (r *repository) InsertUser(ctx context.Context, user model.User) error {
 	return nil
 }
 
-func (r *repository) GetUserByPhone(ctx context.Context, phone_number string) (model.User, error) {
+func (r *repository) GetUserByPhone(ctx context.Context, phoneNumber string) (model.User, error) {
 	var user model.User
-	if err := r.db.GetContext(ctx, &user, getUserByPhoneQuery, phone_number); err != nil {
+	if err := r.db.GetContext(ctx, &user, getUserByPhoneQuery, phoneNumber); err != nil {
 		if err == sql.ErrNoRows {
 			return model.User{}, fmt.Errorf("the phone no is not found :%w", model.ErrNotFound)
 		}

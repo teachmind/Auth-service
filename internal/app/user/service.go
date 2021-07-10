@@ -24,7 +24,7 @@ func (s *service) CreateUser(ctx context.Context, user model.User) error {
 		return fmt.Errorf("invalid user request :%w", model.ErrInvalid)
 	}
 
-	if err := model.SignUpPhoneValidation(user.PhoneNumber); !err {
+	if err := user.SignUpPhoneValidation(); !err {
 		return fmt.Errorf("invalid phone number :%w", model.ErrInvalid)
 	}
 
@@ -34,11 +34,11 @@ func (s *service) CreateUser(ctx context.Context, user model.User) error {
 	return s.repo.InsertUser(ctx, user)
 }
 
-func (s *service) GetUserByPhoneAndPassword(ctx context.Context, phone_number, password string) (model.User, error) {
-	if phone_number == "" || password == "" {
+func (s *service) GetUserByPhoneAndPassword(ctx context.Context, phoneNumber, password string) (model.User, error) {
+	if phoneNumber == "" || password == "" {
 		return model.User{}, fmt.Errorf("invalid login request :%w", model.ErrInvalid)
 	}
-	user, err := s.repo.GetUserByPhone(ctx, phone_number)
+	user, err := s.repo.GetUserByPhone(ctx, phoneNumber)
 	if err != nil {
 		return model.User{}, err
 	}

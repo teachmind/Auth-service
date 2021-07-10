@@ -8,11 +8,11 @@ type User struct {
 	ID          int    `json:"id"`
 	PhoneNumber string `json:"phone_number" db:"phone_number"`
 	Password    string `json:"password"`
-	CategoryId  int    `json:"category_id"`
+	CategoryId  int    `json:"category_id" db:"category_id"`
 }
 
-func SignUpPhoneValidation(phone_number string) bool {
+func (user *User) SignUpPhoneValidation() bool {
 	re := regexp.MustCompile(`^(\+88)?(01)(\d{3})[ -]?(\d{6})$`)
-	err := re.MatchString(phone_number)
+	err := re.MatchString(user.PhoneNumber)
 	return err
 }
