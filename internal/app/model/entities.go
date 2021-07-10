@@ -19,8 +19,8 @@ const (
 
 func (user *User) SignUpPhoneValidation() bool {
 	re := regexp.MustCompile(regexpPhone)
-	err := re.MatchString(user.PhoneNumber)
-	return err
+	isValid := re.MatchString(user.PhoneNumber)
+	return isValid
 }
 
 // ValidateLogin Validates user login input
