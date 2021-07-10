@@ -10,6 +10,7 @@ import (
 	"github.com/lib/pq"
 )
 
+// SQL Query and error
 const (
 	errUniqueViolation  = pq.ErrorCode("23505")
 	insertUserQuery     = `INSERT INTO users (phone_number, password, category_id) VALUES ($1, $2, $3)`
@@ -20,6 +21,7 @@ type repository struct {
 	db *sqlx.DB
 }
 
+// NewRepository initiates user repository and returns DB
 func NewRepository(db *sqlx.DB) *repository {
 	return &repository{
 		db: db,

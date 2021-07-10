@@ -6,9 +6,10 @@ package mocks
 
 import (
 	context "context"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 	model "user-service/internal/app/model"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockUserService is a mock of UserService interface
@@ -166,4 +167,34 @@ func (m *MockAuthService) Encode(user model.User) (string, error) {
 func (mr *MockAuthServiceMockRecorder) Encode(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Encode", reflect.TypeOf((*MockAuthService)(nil).Encode), user)
+}
+
+// GetUserByPhoneNumberAndPassword mocks base method
+func (m *MockUserService) GetUserByPhoneNumberAndPassword(ctx context.Context, phone_number, password string) (model.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUserByPhoneNumberAndPassword", ctx, phone_number, password)
+	ret0, _ := ret[0].(model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserByPhoneNumberAndPassword indicates an expected call of GetUserByPhoneNumberAndPassword
+func (mr *MockUserServiceMockRecorder) GetUserByPhoneNumberAndPassword(ctx, phone_number, password interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByPhoneNumberAndPassword", reflect.TypeOf((*MockUserService)(nil).GetUserByPhoneNumberAndPassword), ctx, phone_number, password)
+}
+
+// GetUserByPhoneNumber mocks base method
+func (m *MockUserRepository) GetUserByPhoneNumber(ctx context.Context, phone_number string) (model.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUserByPhoneNumber", ctx, phone_number)
+	ret0, _ := ret[0].(model.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUserByPhoneNumber indicates an expected call of GetUserByPhoneNumber
+func (mr *MockUserRepositoryMockRecorder) GetUserByPhoneNumber(ctx, phone_number interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByPhoneNumber", reflect.TypeOf((*MockUserRepository)(nil).GetUserByPhoneNumber), ctx, phone_number)
 }

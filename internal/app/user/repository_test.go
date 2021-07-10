@@ -22,7 +22,7 @@ func TestRepository_InsertUser(t *testing.T) {
 		user := model.User{
 			PhoneNumber: "01738799349",
 			Password:    "123456",
-			CategoryId: 1,
+			CategoryId:  1,
 		}
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectExec("INSERT INTO users (.+) VALUES (.+)").
@@ -41,7 +41,7 @@ func TestRepository_InsertUser(t *testing.T) {
 		user := model.User{
 			PhoneNumber: "01738799349",
 			Password:    "123456",
-			CategoryId: 1,
+			CategoryId:  1,
 		}
 
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
@@ -59,9 +59,9 @@ func TestRepository_InsertUser(t *testing.T) {
 		defer db.Close()
 
 		user := model.User{
-			PhoneNumber:  "01738799349",
-			Password:     "123456",
-			CategoryId: 1,
+			PhoneNumber: "01738799349",
+			Password:    "123456",
+			CategoryId:  1,
 		}
 
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
@@ -81,10 +81,10 @@ func TestRepository_GetUserByPhone(t *testing.T) {
 		defer db.Close()
 
 		user := model.User{
-			ID:           1,
-			PhoneNumber:  "01738799349",
-			Password:     "123456",
-			CategoryId: 1,
+			ID:          1,
+			PhoneNumber: "01738799349",
+			Password:    "123456",
+			CategoryId:  1,
 		}
 
 		sqlxDB := sqlx.NewDb(db, "sqlmock")

@@ -16,6 +16,7 @@ type server struct {
 	authService   service.AuthService
 }
 
+// NewServer to initiate server
 func NewServer(port string, userSvc service.UserService, authSvc service.AuthService) *server {
 	s := &server{
 		listenAddress: port,
@@ -31,8 +32,9 @@ func NewServer(port string, userSvc service.UserService, authSvc service.AuthSer
 
 func (s *server) route() *mux.Router {
 	r := mux.NewRouter()
-	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
 	apiRoute := r.PathPrefix("/api/v1").Subrouter()
+	apiRoute.HandleFunc("/login", s.login).Methods(http.MethodPost)
+	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
 	apiRoute.HandleFunc("/signup", s.signUp).Methods(http.MethodPost)
 	return r
 }
