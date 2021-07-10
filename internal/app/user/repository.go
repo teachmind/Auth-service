@@ -1,6 +1,7 @@
 package user
 
 import (
+	"strings"
 	"context"
 	"database/sql"
 	"fmt"
@@ -29,6 +30,8 @@ func NewRepository(db *sqlx.DB) *repository {
 }
 
 func (r *repository) InsertUser(ctx context.Context, user model.User) error {
+	user.PhoneNumber = strings.ReplaceAll(user.PhoneNumber, " ", "")
+	user.PhoneNumber = strings.ReplaceAll(user.PhoneNumber, "+88", "")
 	if _, err := r.db.ExecContext(ctx, insertUserQuery, user.PhoneNumber, user.Password, 1); err != nil {
 		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == errUniqueViolation {
 			return fmt.Errorf("%v :%w", err, model.ErrInvalid)
