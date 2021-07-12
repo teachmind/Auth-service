@@ -52,6 +52,7 @@ func (r *repository) GetUserByPhone(ctx context.Context, phoneNumber string) (mo
 	return user, nil
 }
 
+// RMCodeAndSpace remove the country code and space from http request phone no
 func RMCodeAndSpace (phoneNumber string) (string) {
 	phoneNumber = strings.ReplaceAll(phoneNumber, " ", "")
 	phoneNumber = strings.ReplaceAll(phoneNumber, "+88", "")

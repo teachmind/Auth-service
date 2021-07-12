@@ -7,6 +7,7 @@ import (
 
 //go:generate mockgen -source service.go -destination ./mocks/mock_service.go -package mocks
 
+// AuthService to encode user credentials and to generate the jwt token
 type AuthService interface {
 	Decode(tokenStr string) (*model.JwtCustomClaims, error)
 	Encode(user model.User) (string, error)

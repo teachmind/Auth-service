@@ -17,7 +17,7 @@ const (
 	regexpPhone = `^(\+88)?(01)(\d{3})[ -]?(\d{6})$`
 )
 
-// ValidAuthentication Validates user login input
+// ValidAuthentication Validates user input credentials
 func (u *User) ValidateAuthentication() error {
 
 	if u.PhoneNumber == "" {
