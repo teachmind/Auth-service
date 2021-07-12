@@ -21,7 +21,7 @@ func TestRepository_GetUserByPhoneNumber(t *testing.T) {
 			ID:          1,
 			PhoneNumber: "+880123456",
 			Password:    "123456",
-			CategoryId:  1,
+			CategoryID:  1,
 		}
 		sqlxDB := sqlx.NewDb(db, "sqlmock")
 		m.ExpectQuery("^SELECT (.+) FROM users WHERE (.+)").

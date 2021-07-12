@@ -23,7 +23,7 @@ func TestLogin(t *testing.T) {
 		ID:          1,
 		PhoneNumber: "+8801712345678",
 		Password:    "123456",
-		CategoryId:  1,
+		CategoryID:  1,
 	}
 
 	testCases := []struct {
