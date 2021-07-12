@@ -37,14 +37,7 @@ func TestService_CreateUser(t *testing.T) {
 			},
 			expErr: nil,
 		},
-		{
-			desc:    "should return invalid user request error",
-			payload: model.User{},
-			mockRepo: func() *mocks.MockUserRepository {
-				return mocks.NewMockUserRepository(ctrl)
-			},
-			expErr: fmt.Errorf("invalid user request :%w", model.ErrInvalid),
-		},
+
 		{
 			desc: "should return db error",
 			payload: model.User{

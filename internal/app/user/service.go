@@ -19,7 +19,6 @@ func NewService(repo svc.UserRepository) *service {
 }
 
 func (s *service) CreateUser(ctx context.Context, user model.User) error {
-
 	if p, err := util.HashPassword(user.Password); err == nil {
 		user.Password = p
 	}

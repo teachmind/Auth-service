@@ -52,7 +52,7 @@ func (r *repository) GetUserByPhone(ctx context.Context, phoneNumber string) (mo
 	return user, nil
 }
 
-func RMCodeAndSpace (phoneNumber string) string {
+func RMCodeAndSpace (phoneNumber string) (string) {
 	phoneNumber = strings.ReplaceAll(phoneNumber, " ", "")
 	phoneNumber = strings.ReplaceAll(phoneNumber, "+88", "")
 	return phoneNumber

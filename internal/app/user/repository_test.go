@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
 	"testing"
 	"user-service/internal/app/model"
 
@@ -95,7 +94,7 @@ func TestRepository_GetUserByPhone(t *testing.T) {
 
 		repo := NewRepository(sqlxDB)
 		result, err := repo.GetUserByPhone(context.Background(), "01738799349")
-		fmt.Println(err)
+
 		assert.Nil(t, err)
 		assert.EqualValues(t, user, result)
 	})
