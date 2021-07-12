@@ -17,6 +17,11 @@ func (s *server) signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if err := data.ValidateAuthentication(); err != nil {
+		ErrInvalidEntityResponse(w, "Invalid Input", err)
+		return
+	}
+
 	if err := s.userService.CreateUser(r.Context(), data); err != nil {
 		if errors.Is(err, model.ErrInvalid) {
 			ErrInvalidEntityResponse(w, "invalid user", err)
@@ -29,9 +34,16 @@ func (s *server) signUp(w http.ResponseWriter, r *http.Request) {
 	SuccessResponse(w, http.StatusCreated, "successful")
 }
 
+
 func (s *server) login(w http.ResponseWriter, r *http.Request) {
 	var data model.User
-	if err := data.ValidateLogin(); err != nil {
+
+	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
+		ErrUnprocessableEntityResponse(w, "Decode Error", err)
+		return
+	}
+
+	if err := data.ValidateAuthentication(); err != nil {
 		ErrInvalidEntityResponse(w, "Invalid Input", err)
 		return
 	}
