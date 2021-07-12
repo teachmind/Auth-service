@@ -36,6 +36,8 @@ func (s *server) route() *mux.Router {
 	apiRoute.HandleFunc("/login", s.login).Methods(http.MethodPost)
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
 	apiRoute.HandleFunc("/signup", s.signUp).Methods(http.MethodPost)
+	apiRoute.HandleFunc("/authorization/validate", s.tokenValidation).Methods(http.MethodGet)
+
 	return r
 }
 
