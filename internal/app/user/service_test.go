@@ -28,7 +28,7 @@ func TestService_CreateUser(t *testing.T) {
 			payload: model.User{
 				PhoneNumber: "01738799349",
 				Password:    "123456",
-				CategoryId:  1,
+				CategoryID:  1,
 			},
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
@@ -43,7 +43,7 @@ func TestService_CreateUser(t *testing.T) {
 			payload: model.User{
 				PhoneNumber: "01738799349",
 				Password:    "12345",
-				CategoryId:  1,
+				CategoryID:  1,
 			},
 			mockRepo: func() *mocks.MockUserRepository {
 				r := mocks.NewMockUserRepository(ctrl)
@@ -72,7 +72,7 @@ func TestService_GetUserByPhoneAndPassword(t *testing.T) {
 		ID:          1,
 		PhoneNumber: "01738799349",
 		Password:    password,
-		CategoryId:  1,
+		CategoryID:  1,
 	}
 
 	testCases := []struct {

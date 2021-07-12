@@ -2,15 +2,16 @@ package server
 
 import (
 	"errors"
-	"github.com/golang/mock/gomock"
-	"github.com/gorilla/mux"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 	"user-service/internal/app/model"
 	"user-service/internal/app/service/mocks"
+
+	"github.com/golang/mock/gomock"
+	"github.com/gorilla/mux"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSignUp(t *testing.T) {
@@ -87,7 +88,7 @@ func TestLogin(t *testing.T) {
 		ID:          1,
 		PhoneNumber: "+8801712345678",
 		Password:    "123456",
-		CategoryId:  1,
+		CategoryID:  1,
 	}
 
 	testCases := []struct {
