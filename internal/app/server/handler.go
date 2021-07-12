@@ -17,6 +17,7 @@ func (s *server) signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// validating input credentials for signing up
 	if err := data.ValidateAuthentication(); err != nil {
 		ErrInvalidEntityResponse(w, "Invalid Input", err)
 		return
@@ -52,6 +53,7 @@ func (s *server) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// validating input credentials for logging in
 	if err := data.ValidateAuthentication(); err != nil {
 		ErrInvalidEntityResponse(w, "Invalid Input", err)
 		return
