@@ -3,5 +3,4 @@ build
 *.out
 coverage.html
 coverage.txt
-.idea/
 **/vendor
