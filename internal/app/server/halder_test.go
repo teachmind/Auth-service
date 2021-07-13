@@ -23,6 +23,7 @@ func TestSignUp(t *testing.T) {
 		payload       string
 		mockSvc       func() *mocks.MockUserService
 		expStatusCode int
+		expResponse string
 	}{
 		{
 			desc:    "should success",
@@ -33,6 +34,7 @@ func TestSignUp(t *testing.T) {
 				return s
 			},
 			expStatusCode: http.StatusCreated,
+			expResponse:   `{"success":true,"errors":null,"data":"successful"}`,
 		},
 		{
 			desc:    "should return decode error",
@@ -41,6 +43,7 @@ func TestSignUp(t *testing.T) {
 				return mocks.NewMockUserService(ctrl)
 			},
 			expStatusCode: http.StatusUnprocessableEntity,
+			expResponse:   `{"success":false,"errors":[{"code":"INVALID","message":"invalid character '-' in numeric literal","message_title":"Decode Error","severity":"error"}],"data":null}`,
 		},
 		{
 			desc:    "should return invalid user error",
@@ -51,6 +54,7 @@ func TestSignUp(t *testing.T) {
 				return s
 			},
 			expStatusCode: http.StatusBadRequest,
+			expResponse:   `{"success":false,"errors":[{"code":"INVALID","message":"invalid","message_title":"invalid user","severity":"error"}],"data":null}`,
 		},
 		{
 			desc:    "should return internal server error",
@@ -61,6 +65,7 @@ func TestSignUp(t *testing.T) {
 				return s
 			},
 			expStatusCode: http.StatusInternalServerError,
+			expResponse:   `{"success":false,"errors":[{"code":"SERVER_ERROR","message":"server-error","message_title":"failed to create user","severity":"error"}],"data":null}`,
 		},
 	}
 
@@ -76,6 +81,7 @@ func TestSignUp(t *testing.T) {
 			router.Methods(http.MethodPost).Path("/api/v1/signup").HandlerFunc(s.signUp)
 			router.ServeHTTP(w, r)
 			assert.Equal(t, tc.expStatusCode, w.Code)
+			assert.Equal(t, tc.expResponse, w.Body.String())
 		})
 	}
 }

@@ -30,8 +30,8 @@ func NewRepository(db *sqlx.DB) *repository {
 }
 
 func (r *repository) InsertUser(ctx context.Context, user model.User) error {
-	phoneNumber := RMCodeAndSpace(user.PhoneNumber)
-	if _, err := r.db.ExecContext(ctx, insertUserQuery, phoneNumber, user.Password, 1); err != nil {
+	actualPhone := RMCodeAndSpace(user.PhoneNumber)
+	if _, err := r.db.ExecContext(ctx, insertUserQuery, actualPhone, user.Password, 1); err != nil {
 		if pqErr, ok := err.(*pq.Error); ok && pqErr.Code == errUniqueViolation {
 			return fmt.Errorf("%v :%w", err, model.ErrInvalid)
 		}
