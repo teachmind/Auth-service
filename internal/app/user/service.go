@@ -12,16 +12,27 @@ type service struct {
 	repo svc.UserRepository
 }
 
-// NewService Initiates new user repository service
+// NewService is to generate for new repo
 func NewService(repo svc.UserRepository) *service {
 	return &service{
 		repo: repo,
 	}
 }
 
-// GetUserByPhoneNumberAndPassword to get User by PhoneNumber and Password
-func (s *service) GetUserByPhoneNumberAndPassword(ctx context.Context, phoneNumber, password string) (model.User, error) {
-	user, err := s.repo.GetUserByPhoneNumber(ctx, phoneNumber)
+// CreaetUser is to hash password, validate credentials and inserting data into database
+func (s *service) CreateUser(ctx context.Context, user model.User) error {
+	if p, err := util.HashPassword(user.Password); err == nil {
+		user.Password = p
+	}
+	return s.repo.InsertUser(ctx, user)
+}
+
+// GetUserByPhoneAndPassword is for getting User data from the database using the phone number
+func (s *service) GetUserByPhoneAndPassword(ctx context.Context, phoneNumber, password string) (model.User, error) {
+	if phoneNumber == "" || password == "" {
+		return model.User{}, fmt.Errorf("invalid login request :%w", model.ErrInvalid)
+	}
+	user, err := s.repo.GetUserByPhone(ctx, phoneNumber)
 	if err != nil {
 		return model.User{}, err
 	}

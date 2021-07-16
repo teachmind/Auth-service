@@ -4,4 +4,17 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/934b654ea9eb4f72b98138b21b5aea94)](https://www.codacy.com/gh/teachmind/Auth-service/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=teachmind/Auth-service&amp;utm_campaign=Badge_Grade)
 [![](https://godoc.org/github.com/teachmind/Auth-service?status.svg)](https://godoc.org/github.com/teachmind/Auth-service)
 # Auth-service
-This is responsible for user role and token validation
+## Features 
+    - Server Preparation for Running the project on localhost
+    - Database Migration
+    - Registration
+    - Login
+    - Token Validation
+
+
+### Registration
+    - User Signup
+    - Encode and Decoding the HTTP credentials
+    - Validating all Credentials 
+    - Phone Number Validation using RegExp
+

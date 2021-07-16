@@ -12,8 +12,8 @@ import (
 type server struct {
 	listenAddress string
 	http          *http.Server
-	authService   service.AuthService
 	userService   service.UserService
+	authService   service.AuthService
 }
 
 // NewServer to initiate server
@@ -35,7 +35,9 @@ func (s *server) route() *mux.Router {
 	apiRoute := r.PathPrefix("/api/v1").Subrouter()
 	apiRoute.HandleFunc("/login", s.login).Methods(http.MethodPost)
 	r.Methods(http.MethodGet).Path("/ping").HandlerFunc(s.pingHandler)
+	apiRoute.HandleFunc("/signup", s.signUp).Methods(http.MethodPost)
 	apiRoute.HandleFunc("/authorization/validate", s.tokenValidation).Methods(http.MethodGet)
+
 	return r
 }
 

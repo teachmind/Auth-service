@@ -13,7 +13,7 @@ func TestService_Decode(t *testing.T) {
 			ID:          2,
 			PhoneNumber: "+8801707123123",
 			Password:    "pas8889ff",
-			CategoryId:  1,
+			CategoryID:  1,
 		}
 
 		s := NewService()
