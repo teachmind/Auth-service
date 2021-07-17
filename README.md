@@ -40,15 +40,15 @@
     PostgreSQL
 
 ## Installation
-#### Step-1
+### Step-1
     Copy/rename `.env.example` file as `.env`. Change the `APP_PORT`, `DB_PORT`, `DB_NAME`,`DB_HOST, DB_USER, DB_PASSWORD` value as per your DB and Project setup.
 
-#### Step-2
+### Step-2
     Migrate DB using the following command:
     ```bash
     go run main.go migrate
     ```
-#### Step-2
+### Step-2
     Run server using the following command:
     ```bash
     go run main.go server
