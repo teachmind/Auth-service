@@ -11,10 +11,46 @@
     - Login
     - Token Validation
 
-
 ### Registration
     - User Signup
     - Encode and Decoding the HTTP credentials
     - Validating all Credentials 
     - Phone Number Validation using RegExp
 
+### Login
+    - User Login
+    - Provide JWT token
+    - User login validation
+    
+## Project Structure
+    .
+    |-- cmd                 # Contains the commands for the project
+    |-- images              # Contains all image file
+    |-- internal            # Configuration files and Constants
+    |-- migration           # Contains migration files
+    |-- .env.example        # example/structure of .env file
+    |-- Dockerfile          # Used to build docker image.
+    |-- go.mode             # Define's the module's import path used for root directory
+    |-- go.sum              # Contains the expected cryptographic checksums of the content of specific module versions
+    |-- Makefile            # Makefile to run commands after docker up
+    |-- phpunit.xml         # Configuration of testcase and testing files
+    |-- readme.md           # Explains project installation and other informations
+
+## Tools and Technology
+    Golang
+    PostgreSQL
+
+## Installation
+#### Step-1
+    Copy/rename `.env.example` file as `.env`. Change the `APP_PORT`, `DB_PORT`, `DB_NAME`,`DB_HOST, DB_USER, DB_PASSWORD` value as per your DB and Project setup.
+
+#### Step-2
+    Migrate DB using the following command:
+    ```bash
+    go run main.go migrate
+    ```
+#### Step-2
+    Run server using the following command:
+    ```bash
+    go run main.go server
+    ```
