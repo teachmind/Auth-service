@@ -33,7 +33,6 @@
     |-- go.mode             # Define's the module's import path used for root directory
     |-- go.sum              # Contains the expected cryptographic checksums of the content of specific module versions
     |-- Makefile            # Makefile to run commands after docker up
-    |-- phpunit.xml         # Configuration of testcase and testing files
     |-- readme.md           # Explains project installation and other informations
 
 ## Tools and Technology
