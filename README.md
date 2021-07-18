@@ -48,7 +48,7 @@
     ```bash
     go run main.go migrate
     ```
-### Step-2
+### Step-3
     Run server using the following command:
     ```bash
     go run main.go server
