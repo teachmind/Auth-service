@@ -42,14 +42,7 @@
 ## Installation
 ### Step-1
     Copy/rename `.env.example` file as `.env`. Change the `APP_PORT`, `DB_PORT`, `DB_NAME`,`DB_HOST, DB_USER, DB_PASSWORD` value as per your DB and Project setup.
-
 ### Step-2
-    Migrate DB using the following command:
-    ```bash
-    go run main.go migrate
-    ```
+    Run migration command `go run main.go migrate` for Database migration
 ### Step-3
-    Run server using the following command:
-    ```bash
-    go run main.go server
-    ```
+    To start server run `go run main.go server`
