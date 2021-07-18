@@ -13,6 +13,7 @@
 - Login
 - Token Validation
 
+## Feature Details
 ### Registration
 - User Signup
 - Encode and Decoding the HTTP credentials
@@ -42,6 +43,6 @@
 - PostgreSQL
 
 ## Installation
-- Copy/rename `.env.example` file as `.env`. Change the `APP_PORT`, `DB_PORT`, `DB_NAME`,`DB_HOST, DB_USER, DB_PASSWORD` value as per your DB and Project setup.
+- Copy/rename `.env.example` file as `.env`. Change the `APP_PORT`, `DB_PORT`, `DB_NAME`,`DB_HOST`, `DB_USER`, `DB_PASSWORD` value as per your DB and Project setup.
 - Run migration command `go run main.go migrate` for Database migration
 - To start server run `go run main.go server`
