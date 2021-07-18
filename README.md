@@ -19,7 +19,6 @@
 -   Encode and Decoding the HTTP credentials
 -   Validating all Credentials 
 -   Phone Number Validation using RegExp
-
 ### Login
 -   User Login
 -   Provide JWT token
