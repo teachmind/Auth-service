@@ -14,6 +14,9 @@
 -   Token Validation
 
 ## Feature Details
+### Database Migration
+-   Database schema will be created when migrating
+-   Rollback query is added for making the database empty
 ### Registration
 -   User Signup
 -   Encode and Decoding the HTTP credentials
@@ -23,7 +26,10 @@
 -   User Login
 -   Provide JWT token
 -   User login validation
-    
+### Token Validation
+-   Token will be validet for unauthorized call
+-   User data will given at response for valid token
+
 ## Project Structure
     .
     |-- cmd                 # Contains the commands for the project
