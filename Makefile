@@ -26,6 +26,14 @@ migrate: build
 	@echo "> running database migration"
 	@${APP_EXECUTABLE} migrate
 
+copy-config:
+	@echo "> copying configuration file"
+	@cp .env.example .env
+
+server: build
+	@echo "> starting server"
+	@${APP_EXECUTABLE} server
+
 test:
 	@echo "> running test and creating coverage report"
 	go test -race -p=1 -cover -coverprofile=coverage.txt -covermode=atomic $(ALL_PACKAGES)
